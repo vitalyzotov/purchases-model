@@ -1,6 +1,6 @@
 package ru.vzotov.purchase.domain.model;
 
-import ru.vzotov.cashreceipt.domain.model.CheckId;
+import ru.vzotov.cashreceipt.domain.model.ReceiptId;
 import ru.vzotov.cashreceipt.domain.model.PurchaseCategory;
 import ru.vzotov.ddd.shared.AggregateRoot;
 import ru.vzotov.ddd.shared.Entity;
@@ -17,7 +17,7 @@ public class Purchase implements Entity<Purchase> {
 
     private PurchaseId purchaseId;
 
-    private CheckId checkId;
+    private ReceiptId receiptId;
 
     private String name;
 
@@ -34,7 +34,7 @@ public class Purchase implements Entity<Purchase> {
     }
 
     public Purchase(PurchaseId purchaseId, String name, LocalDateTime dateTime, Money price, BigDecimal quantity,
-                    CheckId checkId, PurchaseCategory category) {
+                    ReceiptId receiptId, PurchaseCategory category) {
         Validate.notNull(purchaseId);
         Validate.notNull(name);
         Validate.notNull(dateTime);
@@ -47,7 +47,7 @@ public class Purchase implements Entity<Purchase> {
         this.price = price;
         this.quantity = quantity;
 
-        this.checkId = checkId;
+        this.receiptId = receiptId;
         this.category = category;
     }
 
@@ -55,8 +55,8 @@ public class Purchase implements Entity<Purchase> {
         return purchaseId;
     }
 
-    public CheckId checkId() {
-        return checkId;
+    public ReceiptId receiptId() {
+        return receiptId;
     }
 
     public String name() {
@@ -99,8 +99,8 @@ public class Purchase implements Entity<Purchase> {
         return price.multiply(quantity.doubleValue());
     }
 
-    public void assignCheck(CheckId check) {
-        this.checkId = check;
+    public void assignReceipt(ReceiptId receiptId) {
+        this.receiptId = receiptId;
     }
 
     public void assignCategory(PurchaseCategory category) {
@@ -129,6 +129,19 @@ public class Purchase implements Entity<Purchase> {
 
     protected Purchase() {
         //for Hibernate
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", purchaseId=" + purchaseId +
+                ", receiptId=" + receiptId +
+                ", name='" + name + '\'' +
+                ", dateTime=" + dateTime +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 
     /**
