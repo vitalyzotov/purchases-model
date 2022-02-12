@@ -7,13 +7,15 @@ import ru.vzotov.ddd.shared.Entity;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import ru.vzotov.domain.model.Money;
+import ru.vzotov.person.domain.model.Owned;
+import ru.vzotov.person.domain.model.PersonId;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @AggregateRoot
-public class Purchase implements Entity<Purchase> {
+public class Purchase implements Entity<Purchase>, Owned {
 
     private PurchaseId purchaseId;
 
@@ -29,19 +31,23 @@ public class Purchase implements Entity<Purchase> {
 
     private PurchaseCategory category;
 
-    public Purchase(PurchaseId purchaseId, String name, LocalDateTime dateTime, Money price, BigDecimal quantity) {
-        this(purchaseId, name, dateTime, price, quantity, null, null);
+    private PersonId owner;
+
+    public Purchase(PurchaseId purchaseId, PersonId owner, String name, LocalDateTime dateTime, Money price, BigDecimal quantity) {
+        this(purchaseId, owner, name, dateTime, price, quantity, null, null);
     }
 
-    public Purchase(PurchaseId purchaseId, String name, LocalDateTime dateTime, Money price, BigDecimal quantity,
+    public Purchase(PurchaseId purchaseId, PersonId owner, String name, LocalDateTime dateTime, Money price, BigDecimal quantity,
                     ReceiptId receiptId, PurchaseCategory category) {
         Validate.notNull(purchaseId);
+        Validate.notNull(owner);
         Validate.notNull(name);
         Validate.notNull(dateTime);
         Validate.notNull(price);
         Validate.notNull(quantity);
 
         this.purchaseId = purchaseId;
+        this.owner = owner;
         this.name = name;
         this.dateTime = dateTime;
         this.price = price;
@@ -49,6 +55,11 @@ public class Purchase implements Entity<Purchase> {
 
         this.receiptId = receiptId;
         this.category = category;
+    }
+
+    @Override
+    public PersonId owner() {
+        return owner;
     }
 
     public PurchaseId purchaseId() {
