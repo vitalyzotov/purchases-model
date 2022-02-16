@@ -21,7 +21,7 @@
         <ddd.version>1.4</ddd.version>
         <money.version>1.5</money.version>
         <gov.model.version>1.6</gov.model.version>
-        <cashreceipt.model.version>1.55-SNAPSHOT</cashreceipt.model.version>
+        <cashreceipt.model.version>1.55</cashreceipt.model.version>
     </properties>
 
     <dependencies>
