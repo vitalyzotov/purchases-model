@@ -46,7 +46,7 @@ public class PurchaseId implements ValueObject<PurchaseId> {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     protected PurchaseId() {
