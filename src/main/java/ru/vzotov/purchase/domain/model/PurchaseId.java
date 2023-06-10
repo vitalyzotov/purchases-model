@@ -1,6 +1,6 @@
 package ru.vzotov.purchase.domain.model;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 import ru.vzotov.ddd.shared.ValueObject;
 
 import java.util.Objects;
@@ -46,7 +46,7 @@ public class PurchaseId implements ValueObject<PurchaseId> {
 
     @Override
     public String toString() {
-        return value.toString();
+        return value;
     }
 
     protected PurchaseId() {
