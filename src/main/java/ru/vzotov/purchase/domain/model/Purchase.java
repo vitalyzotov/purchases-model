@@ -11,6 +11,7 @@ import ru.vzotov.person.domain.model.Owned;
 import ru.vzotov.person.domain.model.PersonId;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -32,6 +33,10 @@ public class Purchase implements Entity<Purchase>, Owned {
     private PurchaseCategory category;
 
     private PersonId owner;
+
+    private Instant createdOn;
+
+    private Instant updatedOn;
 
     public Purchase(PurchaseId purchaseId, PersonId owner, String name, LocalDateTime dateTime, Money price, BigDecimal quantity) {
         this(purchaseId, owner, name, dateTime, price, quantity, null, null);
@@ -118,6 +123,14 @@ public class Purchase implements Entity<Purchase>, Owned {
         this.category = category;
     }
 
+    public Instant createdOn() {
+        return createdOn;
+    }
+
+    public Instant updatedOn() {
+        return updatedOn;
+    }
+
     @Override
     public boolean sameIdentityAs(Purchase other) {
         return other != null && new EqualsBuilder()
@@ -140,6 +153,15 @@ public class Purchase implements Entity<Purchase>, Owned {
 
     protected Purchase() {
         //for Hibernate
+    }
+
+    protected void onCreate() {
+        createdOn = Instant.now();
+        updatedOn = createdOn;
+    }
+
+    protected void onUpdate() {
+        updatedOn = Instant.now();
     }
 
     @Override
