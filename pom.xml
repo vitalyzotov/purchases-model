@@ -21,7 +21,7 @@
 
         <!-- Own modules -->
         <ddd.version>1.4</ddd.version>
-        <money.version>2.0</money.version>
+        <money.version>2.1</money.version>
         <gov.model.version>2.0</gov.model.version>
         <cashreceipt.model.version>2.0</cashreceipt.model.version>
     </properties>
